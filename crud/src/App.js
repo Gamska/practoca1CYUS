@@ -49,6 +49,21 @@ insertar= ()=>{
   lista.push(valorNuevo);
   this.setState({ modalInsertar: false, data: lista });
 }
+//eliminar empleado
+eliminar = (dato) => {
+  var opcion = window.confirm("Estás Seguro que deseas Eliminar el elemento "+dato.id);
+  if (opcion == true) {
+    var contador = 0;
+    var arreglo = this.state.data;
+    arreglo.map((registro) => {
+      if (dato.id == registro.id) {
+        arreglo.splice(contador, 1);
+      }
+      contador++;
+    });
+    this.setState({ data: arreglo, modalActualizar: false });
+  }
+};
 
 handleChange = (e) => {
   this.setState({
@@ -87,6 +102,7 @@ handleChange = (e) => {
                   <td>{dato.correo}</td>
                   <td>{dato.fecha}</td>
                   <td>
+                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
