@@ -64,7 +64,7 @@ handleChange = (e) => {
       <>
       <Container>
         <br />
-        <h1>GESTION DE EMPLEADOS</h1>
+        <h1>GESTION DE EMPLEADOS V.02</h1>
           <br />
           <Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button>
           <br />
