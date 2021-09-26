@@ -41,6 +41,31 @@ mostrarModalInsertar = () => {
 cerrarModalInsertar = () => {
   this.setState({ modalInsertar: false });
 };
+//mostrar el modal de  editar 
+mostrarModalActualizar = (dato) => {
+  this.setState({
+    form: dato,
+    modalActualizar: true,
+  });
+};
+
+cerrarModalActualizar = () => {
+  this.setState({ modalActualizar: false });
+};
+//mandar valores del editar 
+editar = (dato) => {
+  var contador = 0;
+  var arreglo = this.state.data;
+  arreglo.map((registro) => {
+    if (dato.id == registro.id) {
+      arreglo[contador].nombre = dato.nombre;
+      arreglo[contador].correo = dato.correo;
+      arreglo[contador].fecha = dato.fecha;
+    }
+    contador++;
+  });
+  this.setState({ data: arreglo, modalActualizar: false });
+};
 //insertar empleado
 insertar= ()=>{
   var valorNuevo= {...this.state.form};
@@ -49,6 +74,21 @@ insertar= ()=>{
   lista.push(valorNuevo);
   this.setState({ modalInsertar: false, data: lista });
 }
+//eliminar empleado
+eliminar = (dato) => {
+  var opcion = window.confirm("Estás Seguro que deseas Eliminar el elemento "+dato.id);
+  if (opcion == true) {
+    var contador = 0;
+    var arreglo = this.state.data;
+    arreglo.map((registro) => {
+      if (dato.id == registro.id) {
+        arreglo.splice(contador, 1);
+      }
+      contador++;
+    });
+    this.setState({ data: arreglo, modalActualizar: false });
+  }
+};
 
 handleChange = (e) => {
   this.setState({
@@ -87,6 +127,8 @@ handleChange = (e) => {
                   <td>{dato.correo}</td>
                   <td>{dato.fecha}</td>
                   <td>
+                  <Button color="primary" onClick={() => this.mostrarModalActualizar(dato)}>Editar </Button>{" "}
+                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -156,6 +198,79 @@ handleChange = (e) => {
           </ModalFooter>
         </Modal>
      
+        <Modal isOpen={this.state.modalActualizar}>
+          <ModalHeader>
+           <div><h3>Editar Registro</h3></div>
+          </ModalHeader>
+
+          <ModalBody>
+            <FormGroup>
+              <label>
+               Id:
+              </label>
+            
+              <input
+                className="form-control"
+                readOnly
+                type="text"
+                value={this.state.form.id}
+              />
+            </FormGroup>
+            
+            <FormGroup>
+              <label>
+                Nombre: 
+              </label>
+              <input
+                className="form-control"
+                name="nombre"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.form.nombre}
+              />
+            </FormGroup>
+            
+            <FormGroup>
+              <label>
+                Correo: 
+              </label>
+              <input
+                className="form-control"
+                name="correo"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.form.correo}
+              />
+            </FormGroup>
+            <FormGroup>
+              <label>
+                Fecha de Ingreso: 
+              </label>
+              <input
+                className="form-control"
+                name="fecha"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.form.fecha}
+              />
+            </FormGroup>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              color="primary"
+              onClick={() => this.editar(this.state.form)}
+            >
+              Editar
+            </Button>
+            <Button
+              color="danger"
+              onClick={() => this.cerrarModalActualizar()}
+            >
+              Cancelar
+            </Button>
+          </ModalFooter>
+        </Modal>
 
 </>
     );
