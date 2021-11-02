@@ -1,6 +1,10 @@
 # This is a basic workflow to help you get started with Actions
 
-on: push
+on:
+ push: 
+  branches: [ master ]
+ pull_request:
+  branches: [ master ]
 name: deploy
 jobs:
  deploy:
