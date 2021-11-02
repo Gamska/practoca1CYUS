@@ -14,8 +14,12 @@ jobs:
    - uses: actions/checkout@master
    - name: build and push to docker
      uses: docker/build-push-action@v2
-   - name: build docker image
-     run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+   - name: build Image
+     runs:
+       using: 'docker'
+       image: 'Dockerfile'
+       args:
+    - ${{ inputs.who-to-greet }}
 
 
       
