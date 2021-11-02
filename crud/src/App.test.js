@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 import axios from "axios";
-const url="http://localhost:3000/";
+const url="https://apicrudcitoutm.herokuapp.com/";
 
 
 test('Obtener Datos',()=>{
