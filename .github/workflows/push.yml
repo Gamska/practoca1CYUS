@@ -18,5 +18,5 @@ jobs:
       load: false
       no-cache: true
       pull: true
-      push: false
+      push: true
       
