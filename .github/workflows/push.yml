@@ -5,7 +5,7 @@ on:
   branches: [ master ]
  pull_request:
   branches: [ master ]
-name: deploy
+name: Entorno de Liberacion
 jobs:
  build-container:
   name: deploy to cluster
